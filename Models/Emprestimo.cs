@@ -25,17 +25,17 @@ namespace Ludo.Models
             }
         }
 
-        public void Emprestar(Jogo jogo, Membro membro, int quantidadeDias)
+        public void Emprestar(int jogoId, int membroId, int quantidadeDias)
         {
-            if (jogo == null || membro == null)
+            if (membroId <= 0)
             {
-                throw new ArgumentNullException("Jogo ou membro não podem ser nulos.");
+                throw new ArgumentNullException("Membro não pode ser nulo.");
             }
 
             Emprestimo = new Emprestimo
             {
-                JogoId = jogo.Id,
-                MembroId = membro.Id,
+                JogoId = jogoId,
+                MembroId = membroId,
                 DataEmprestimo = DateTime.Now,
                 DevolucaoPrevista = DateTime.Now.AddDays(quantidadeDias)
             };

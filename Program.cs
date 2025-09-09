@@ -25,10 +25,10 @@ namespace Ludo
                         biblioteca.ListarJogos();
                         break;
                     case "2":
-                        
+                        Membro.CadastrarMembro(new Membro());
                         break;
                     case "3":
-                        // Chamar método para listar jogos
+                        Emprestimo.SolicitarEmprestimo(new Emprestimo());
                         break;
                     case "4":
                         return;
