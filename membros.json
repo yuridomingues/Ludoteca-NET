@@ -1,0 +1,16 @@
+{
+    "Membros": [
+        {
+            "Id": 1,
+            "Nome": "Carolina Diaz",
+            "Email": "Carol@example.com",
+            "Telefone": "123456789"
+        },
+        {
+            "Id": 2,
+            "Nome": "Larissa Ferreira",
+            "Email": "Lari@example.com",
+            "Telefone": "987654321"
+        }
+    ]
+}
