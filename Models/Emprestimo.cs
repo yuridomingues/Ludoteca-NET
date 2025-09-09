@@ -24,5 +24,24 @@ namespace Ludo.Models
                 }
             }
         }
+
+        public void Emprestar(Jogo jogo, Membro membro, int quantidadeDias)
+        {
+            if (jogo == null || membro == null)
+            {
+                throw new ArgumentNullException("Jogo ou membro não podem ser nulos.");
+            }
+
+            Emprestimo = new Emprestimo
+            {
+                JogoId = jogo.Id,
+                MembroId = membro.Id,
+                DataEmprestimo = DateTime.Now,
+                DevolucaoPrevista = DateTime.Now.AddDays(quantidadeDias)
+            };
+
+            var emprestimoPath = "emprestimos.json";
+            File.WriteAllText(emprestimoPath, System.Text.Json.JsonSerializer.Serialize(Emprestimo, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
+        }
     }
 }
