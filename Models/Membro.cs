@@ -7,5 +7,6 @@ public class Membro
     public string Email { get; set; } = string.Empty;
     public DateTime DataDeNascimento { get; set; }
     public int Telefone { get; set; }
+    public decimal Multa { get; set; } = 0;
     public bool Ativo { get; set; } = true;
 }
