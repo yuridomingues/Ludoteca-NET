@@ -1,0 +1,18 @@
+{
+    "Jogos": [
+        {
+            "Id": 1,
+            "Titulo": "Jogo 1",
+            "Descricao": "Descrição do Jogo 1",
+            "AnoLancamento": 2020,
+            "Categoria": "Aventura"
+        },
+        {
+            "Id": 2,
+            "Titulo": "Jogo 2",
+            "Descricao": "Descrição do Jogo 2",
+            "AnoLancamento": 2021,
+            "Categoria": "Ação"
+        }
+    ]
+}

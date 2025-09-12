@@ -1,0 +1,11 @@
+[
+    {
+        "Id": 1,
+        "JogoId": 1,
+        "MembroId": 1,
+        "DataEmprestimo": "2023-10-01T10:00:00",
+        "DevolucaoPrevista": "2023-10-15T10:00:00",
+        "DataDevolucao": null,
+        "ValorMulta": 0
+    }
+]
