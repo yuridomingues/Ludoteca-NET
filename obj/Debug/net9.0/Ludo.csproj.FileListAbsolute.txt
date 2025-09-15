@@ -12,3 +12,4 @@ C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\refint\
 C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.pdb
 C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.genruntimeconfig.cache
 C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\ref\Ludo.dll
+c:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.sourcelink.json
