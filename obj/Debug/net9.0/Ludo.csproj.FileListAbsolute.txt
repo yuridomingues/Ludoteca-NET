@@ -1,0 +1,14 @@
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\bin\Debug\net9.0\Ludo.exe
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\bin\Debug\net9.0\Ludo.deps.json
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\bin\Debug\net9.0\Ludo.runtimeconfig.json
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\bin\Debug\net9.0\Ludo.dll
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\bin\Debug\net9.0\Ludo.pdb
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.AssemblyInfoInputs.cache
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.AssemblyInfo.cs
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.csproj.CoreCompileInputs.cache
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.dll
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\refint\Ludo.dll
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.pdb
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.genruntimeconfig.cache
+C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\ref\Ludo.dll
