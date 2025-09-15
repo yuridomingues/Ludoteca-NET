@@ -22,9 +22,6 @@ class Program
 
             var game = new GameModel();
 
-            Console.Write("Id: ");
-            game.Id = int.Parse(Console.ReadLine()!);
-
             Console.Write("Nome: ");
             game.Name = Console.ReadLine()!;
 

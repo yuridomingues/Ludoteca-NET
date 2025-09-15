@@ -5,21 +5,19 @@ namespace App.Services
 {
     public class GameService
     {
-        private List<GameModel> _games = new List<GameModel>();
+        private List<GameModel> games = new List<GameModel>();
+        private int nextId = 1; 
 
         public void CreateGame(GameModel game)
         {
-            _games.Add(game);
-        }
-
-        public void RemoveGame(int id)
-        {
-            _games.RemoveAll(g => g.Id == id);
+            game.Id = nextId++; 
+            games.Add(game);
         }
 
         public List<GameModel> GetAllGames()
         {
-            return _games;
+            return games;
         }
     }
+
 }
