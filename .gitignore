@@ -1,0 +1,85 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Tt]emp/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# Build artifacts
+*.dll
+*.exe
+*.app
+*.log
+*.cache
+*.pdb
+*.tmp
+*.bak
+*.swp
+
+# Test results
+TestResults/
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+artifacts/
+.nuget/
+packages/
+*.nuget.props
+*.nuget.targets
+
+# ASP.NET
+wwwroot/dist/
+wwwroot/lib/
+
+# Entity Framework
+Migrations/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Other
+*.dbmdl
+*.bak
+*.ldf
+*.mdf
+*.sql
+
+# OS generated
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# JetBrains Rider
+.idea/
+
+# DotNetCore
+project.fragment.lock.json
+artifacts/
+
+# Publish output
+publish/
+out/
