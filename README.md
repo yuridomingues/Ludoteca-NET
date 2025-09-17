@@ -1,5 +1,4 @@
 # Ludoteca-NET
 
 ### Diagrama de Classes: (0.0.0)
-<img width="555" height="352" alt="image" src="https://github.com/user-attachments/assets/376d74d4-7dd4-4a5d-ab34-74785e64a73e" />
-
+![Imagem do WhatsApp de 2025-09-15 à(s) 09 02 33_7118d443](https://github.com/user-attachments/assets/d014bcdd-231b-42f8-a6f5-b474f31dbc24)
