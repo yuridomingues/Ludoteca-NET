@@ -13,3 +13,18 @@ C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.pd
 C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.genruntimeconfig.cache
 C:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\ref\Ludo.dll
 c:\Users\heloi\OneDrive\Área de Trabalho\ludoteca\Ludo\obj\Debug\net9.0\Ludo.sourcelink.json
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.AssemblyInfoInputs.cache
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.AssemblyInfo.cs
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.csproj.CoreCompileInputs.cache
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.sourcelink.json
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.dll
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\refint\Ludo.dll
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.pdb
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\bin\Debug\net9.0\Ludo.exe
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\bin\Debug\net9.0\Ludo.deps.json
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\bin\Debug\net9.0\Ludo.runtimeconfig.json
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\bin\Debug\net9.0\Ludo.dll
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\bin\Debug\net9.0\Ludo.pdb
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\Ludo.genruntimeconfig.cache
+C:\Users\Pichau\Documents\projects\Ludoteca-NET\obj\Debug\net9.0\ref\Ludo.dll

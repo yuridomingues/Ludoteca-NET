@@ -1,6 +1,6 @@
-using app.Models;
+using App.Models;
 
-namespace app.Models
+namespace App.Models
 {
     public class Emprestimo
     {
@@ -12,18 +12,18 @@ namespace app.Models
         public DateTime? DataDevolucao { get; set; }
         public decimal ValorMulta { get; set; }
 
-        public void CalculoMulta(int valorPorDiasDeAtraso, Membro membro)
-        {
-            if (DataDevolucao.HasValue && DataDevolucao.Value > DevolucaoPrevista)
-            {
-                int diasAtraso = (DataDevolucao.Value - DevolucaoPrevista).Days;
-                ValorMulta = diasAtraso * valorPorDiasDeAtraso;
-                if (membro != null)
-                {
-                    membro.Multa += ValorMulta;
-                }
-            }
-        }
+        // public void CalculoMulta(int valorPorDiasDeAtraso, Membro membro)
+        // {
+        //     if (DataDevolucao.HasValue && DataDevolucao.Value > DevolucaoPrevista)
+        //     {
+        //         int diasAtraso = (DataDevolucao.Value - DevolucaoPrevista).Days;
+        //         ValorMulta = diasAtraso * valorPorDiasDeAtraso;
+        //         if (membro != null)
+        //         {
+        //             membro.Multa += ValorMulta;
+        //         }
+        //     }
+        // }
 
         public void Emprestar(int jogoId, int membroId, int quantidadeDias)
         {
