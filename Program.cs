@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json;
-using App.Models;
-using App.Services;
+using Ludo.Models;
+using Ludo.Services;
+using Ludo.Enum;
 
 class Program
 {
@@ -37,7 +38,7 @@ class Program
                     {
                         Console.WriteLine($"\nCadastro do jogo #{i + 1}");
 
-                        var game = new GameModel();
+                        GameModel game = new GameModel();
 
                         Console.Write("Nome: ");
                         game.Name = Console.ReadLine() ?? "Sem nome";
@@ -82,7 +83,35 @@ class Program
                     break;
 
                 case "3":
-                    Console.WriteLine("Funcionalidade de cadastro de membro ainda não implementada.");
+                    Console.WriteLine("\n=== Cadastro de Membro ===");
+
+                    Member member = new Member();
+
+                    Console.Write("Nome: ");
+                    member.Name = Console.ReadLine() ?? "Sem nome";
+
+                    Console.Write("Email: ");
+                    member.Email = Console.ReadLine() ?? "sememail@dominio.com";
+
+                    Console.Write("Data de nascimento (dd/MM/yyyy): ");
+                    if (!DateTime.TryParse(Console.ReadLine(), out DateTime birthDate))
+                    {
+                        Console.WriteLine("Data inválida! Definindo como 01/01/2000.");
+                        birthDate = new DateTime(2000, 1, 1);
+                    }
+                    member.BirthDate = birthDate;
+
+                    Console.Write("Telefone: ");
+                    member.Phone = Console.ReadLine() ?? "";
+
+                    member.Fine = 0;
+
+                    member.Availability = true;
+
+                    Member.RegisterMember(member);
+
+                    Console.WriteLine("\nMembro cadastrado com sucesso!");
+                    Console.WriteLine($"Id: {member.Id}, Nome: {member.Name}, Email: {member.Email}");
                     break;
 
                 case "4":

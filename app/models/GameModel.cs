@@ -1,4 +1,6 @@
-namespace App.Models
+using Ludo.Enum;
+
+namespace Ludo.Models
 {
     public class GameModel
     {

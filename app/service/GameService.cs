@@ -1,7 +1,7 @@
-using App.Models;
+using Ludo.Models;
 using System.Collections.Generic;
 
-namespace App.Services
+namespace Ludo.Services
 {
     public class GameService
     {
