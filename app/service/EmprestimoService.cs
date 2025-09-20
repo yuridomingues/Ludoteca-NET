@@ -1,4 +1,4 @@
-namespace App.Services
+namespace Ludo.Services
 {
     public static class EmprestimoService
     {

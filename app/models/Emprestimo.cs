@@ -1,6 +1,6 @@
-using App.Models;
+using Ludo.Models;
 
-namespace App.Models
+namespace Ludo.Models
 {
     public class Emprestimo
     {

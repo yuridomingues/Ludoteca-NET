@@ -1,4 +1,4 @@
-namespace App.Models
+namespace Ludo.Enum
 {
     public enum CategoryGame
     {
