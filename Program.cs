@@ -18,10 +18,12 @@ class Program
             Console.WriteLine("1 - Cadastrar jogo");
             Console.WriteLine("2 - Listar jogos");
             Console.WriteLine("3 - Me cadastrar como membro");
-            Console.WriteLine("4 - Consultar minhas multas");
-            Console.WriteLine("5 - Consultar meus empréstimos");
-            Console.WriteLine("6 - Fazer um empréstimo");
-            Console.WriteLine("7 - Sair");
+            Console.WriteLine("4 - Listar membros");
+            Console.WriteLine("5 - Consultar minhas multas");
+            Console.WriteLine("6 - Consultar meus empréstimos");
+            Console.WriteLine("7 - Fazer um empréstimo");
+            Console.WriteLine("8 - Gerar relatório");
+            Console.WriteLine("9 - Sair");
             Console.Write("Opção: ");
 
             switch (Console.ReadLine())
@@ -115,10 +117,15 @@ class Program
                     break;
 
                 case "4":
+                    Console.WriteLine("Lista de membros:");
+                    Member.ListMembers();
+                    break;
+                
+                case "5":
                     Console.WriteLine("Funcionalidade de consulta de multas ainda não implementada.");
                     break;
 
-                case "5":
+                case "6":
                     Console.WriteLine("Insira seu id de membro");
 
                     if (!int.TryParse(Console.ReadLine(), out int memberId))
@@ -143,7 +150,7 @@ class Program
                     }
                     break;
 
-                case "6":
+                case "7":
                     Console.WriteLine("Qual jogo quer pegar emprestado?");
                     Console.WriteLine("Jogos disponíveis:");
                     foreach (var g in gameService.GetAllGames())
@@ -181,7 +188,11 @@ class Program
                         Console.WriteLine("Erro ao realizar o empréstimo. Jogo já emprestado.");
                     break;
 
-                case "7":
+                case "8":
+                    Console.WriteLine("Funcionalidade de gerar relatório ainda não implementaada");
+                    break;
+
+                case "9":
                     Console.WriteLine("Saindo...");
                     return;
 

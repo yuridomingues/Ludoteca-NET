@@ -27,21 +27,20 @@ namespace Ludo.Models
 
         public static void ListMembers()
         {
-            Console.WriteLine("=== MEMBERS LIST ===");
-
             if (Members.Count == 0)
             {
-                Console.WriteLine("No registered members.");
+                Console.WriteLine("Nenhum membro cadastrado.");
             }
             else
             {
                 foreach (var member in Members)
                 {
-                    Console.WriteLine($"Id: {member.Id}, Name: {member.Name}, Email: {member.Email}, Phone: {member.Phone}, Fine: ${member.Fine}, Available: {member.Availability}");
+                    Console.WriteLine($"=== MEMBRO ID: {member.Id} ===");
+                    Console.WriteLine($"Nome: {member.Name} \nEmail: {member.Email} \nTelefone: {member.Phone} \nMulta: ${member.Fine} \nDisponível: {member.Availability}\n");
                 }
             }
 
-            Console.WriteLine("Press ENTER to continue.");
+            Console.WriteLine("ENTER para continuar.");
             Console.ReadLine();
         }
 
