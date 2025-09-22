@@ -13,11 +13,5 @@ namespace Ludo.Services
             game.Id = nextId++; 
             games.Add(game);
         }
-
-        public List<GameModel> GetAllGames()
-        {
-            return games;
-        }
     }
-
 }
