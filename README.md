@@ -2,8 +2,11 @@
 ### Alunos:
 
 Carolina Diaz - 06010688
+
 Heloiza Custódio - 06009234
+
 Larissa Ferreira - 06011175
+
 Yuri Domingues - 06010142
 
 ## Diagrama de Classes:
