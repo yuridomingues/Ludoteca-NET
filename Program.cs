@@ -85,7 +85,7 @@ class Program
                 case "3":
                     Console.WriteLine("\n=== Cadastro de Membro ===");
 
-                    Member member = new Member();
+                    MemberModel member = new MemberModel();
 
                     Console.Write("Nome: ");
                     member.Name = Console.ReadLine() ?? "Sem nome";
@@ -108,14 +108,50 @@ class Program
 
                     member.Availability = true;
 
-                    Member.RegisterMember(member);
+                    MemberModel.RegisterMember(member);
 
                     Console.WriteLine("\nMembro cadastrado com sucesso!");
                     Console.WriteLine($"Id: {member.Id}, Nome: {member.Name}, Email: {member.Email}");
                     break;
 
                 case "4":
-                    Console.WriteLine("Funcionalidade de consulta de multas ainda não implementada.");
+                    Console.Write("Insira seu id de membro: ");
+                    if (!int.TryParse(Console.ReadLine(), out int memberIdForFine))
+                    {
+                        Console.WriteLine("Id inválido!");
+                        break;
+                    }
+
+                    var memberForFine = MemberModel.GetMemberById(memberIdForFine);
+                    if (memberForFine == null)
+                    {
+                        Console.WriteLine("Membro não encontrado.");
+                        break;
+                    }
+
+                    var memberLoans = LoanService.GetLoans(memberIdForFine);
+
+                    if (!memberLoans.Any())
+                    {
+                        Console.WriteLine("Nenhum empréstimo encontrado para este membro.");
+                        break;
+                    }
+
+                    Console.WriteLine("\n=== Consulta de Multas ===");
+                    foreach (var l in memberLoans)
+                    {
+                        LoanModel loan = new LoanModel
+                        {
+                            GameId = l.GameId,
+                            MemberId = l.MemberId,
+                            ExpectedReturnDate = l.ReturnDate,
+                            ReturnDate = DateTime.Now
+                        };
+
+                        loan.CalculateFine(5, memberForFine);
+                    }
+
+                    Console.WriteLine($"Multa total do membro {memberForFine.Name}: R$ {memberForFine.Fine}");
                     break;
 
                 case "5":
@@ -127,18 +163,21 @@ class Program
                         break;
                     }
 
-                    var emprestimos = EmprestimoService.ConsultarEmprestimos(memberId);
+                    var loans = LoanModel.GetLoans(memberId).ToList();
 
-                    if (!emprestimos.Any())
+                    if (!loans.Any())
                     {
                         Console.WriteLine("Nenhum empréstimo encontrado.");
                     }
                     else
                     {
                         Console.WriteLine("\nSeus empréstimos:");
-                        foreach (var e in emprestimos)
+                        foreach (var l in loans)
                         {
-                            Console.WriteLine($"- Jogo ID: {e.GameId}, Data de Devolução: {e.DataDevolucao:dd/MM/yyyy}");
+                            Console.WriteLine(
+                                $"- Jogo ID: {l.GameId}, Prevista: {l.ExpectedReturnDate:dd/MM/yyyy}" +
+                                (l.ReturnDate.HasValue ? $", Devolvido em: {l.ReturnDate:dd/MM/yyyy}" : "")
+                            );
                         }
                     }
                     break;
@@ -174,7 +213,7 @@ class Program
                         break;
                     }
 
-                    var registroDeEmprestimo = EmprestimoService.Emprestar(selectedGame.Id, memberId, quantidadeDias);
+                    var registroDeEmprestimo = LoanService.Borrow(selectedGame.Id, memberId, quantidadeDias);
                     if (registroDeEmprestimo)
                         Console.WriteLine("Empréstimo realizado com sucesso!");
                     else

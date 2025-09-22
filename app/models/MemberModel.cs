@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Ludo.Models
 {
-    public class Member
+    public class MemberModel
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -15,10 +15,10 @@ namespace Ludo.Models
         public decimal Fine { get; set; } = 0;
         public bool Availability { get; set; } = true;
 
-        public static List<Member> Members = new List<Member>();
+        public static List<MemberModel> Members = new List<MemberModel>();
         private static string FilePath = "data/members.json";
 
-        public static void RegisterMember(Member member)
+        public static void RegisterMember(MemberModel member)
         {
             member.Id = Members.Count + 1;
             Members.Add(member);
@@ -57,9 +57,13 @@ namespace Ludo.Models
             if (File.Exists(FilePath))
             {
                 var json = File.ReadAllText(FilePath);
-                var loadedMembers = JsonSerializer.Deserialize<List<Member>>(json);
-                Members = loadedMembers ?? new List<Member>();
+                var loadedMembers = JsonSerializer.Deserialize<List<MemberModel>>(json);
+                Members = loadedMembers ?? new List<MemberModel>();
             }
+        }
+         public static MemberModel? GetMemberById(int id)
+        {
+            return Members.FirstOrDefault(m => m.Id == id);
         }
     }
 }
