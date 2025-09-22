@@ -18,6 +18,22 @@ namespace Ludo.Services
         {
             return games;
         }
+
+        public Task<GameModel> GetGameById(int id)
+        {
+            GameModel game = games.FirstOrDefault(g => g.Id == id);
+            return Task.FromResult(game);
+        }
+
+        private async Task UpdateDisponibility(int id, bool newStatus)
+        {
+            GameModel game = await GetGameById(id);
+
+            if (game != null)
+            {
+                game.Availability = newStatus;
+            }
+        }
     }
 
 }
