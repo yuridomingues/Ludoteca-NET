@@ -8,5 +8,7 @@ Yuri Domingues - 06010142
 
 ## Diagrama de Classes:
 
+![alt text](data/image.png)
+
 ## Ludoteca
 Trabalho de uma aplicação que organiza a alocação e empréstimos de jogos de tabuleiro
