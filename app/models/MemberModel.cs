@@ -61,5 +61,9 @@ namespace Ludo.Models
                 Members = loadedMembers ?? new List<MemberModel>();
             }
         }
+         public static MemberModel? GetMemberById(int id)
+        {
+            return Members.FirstOrDefault(m => m.Id == id);
+        }
     }
 }

@@ -1,4 +1,6 @@
-using Ludo.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ludo.Models
 {
@@ -11,6 +13,8 @@ namespace Ludo.Models
         public DateTime ExpectedReturnDate { get; set; }
         public DateTime? ReturnDate { get; set; }
         public decimal FineAmount { get; set; }
+
+        private static List<LoanModel> loans = new List<LoanModel>();
 
         public void CalculateFine(int finePerLateDay, MemberModel member)
         {
@@ -25,26 +29,35 @@ namespace Ludo.Models
             }
         }
 
-        public void Borrow(int gameId, int memberId, int numberOfDays)
+        public static bool Borrow(int gameId, int memberId, int numberOfDays)
         {
-            if (memberId <= 0)
-            {
-                throw new ArgumentNullException("Member cannot be null.");
-            }
+            if (loans.Any(l => l.GameId == gameId && !l.ReturnDate.HasValue))
+                return false; 
 
-            LoanModel loan = new LoanModel
+            loans.Add(new LoanModel
             {
+                Id = loans.Count + 1,
                 GameId = gameId,
                 MemberId = memberId,
                 LoanDate = DateTime.Now,
                 ExpectedReturnDate = DateTime.Now.AddDays(numberOfDays)
-            };
+            });
 
-            var loanPath = "loans.json";
-            File.WriteAllText(loanPath, System.Text.Json.JsonSerializer.Serialize(
-                loan,
-                new System.Text.Json.JsonSerializerOptions { WriteIndented = true }
-            ));
+            return true;
+        }
+
+        public static IEnumerable<LoanModel> GetLoans(int memberId)
+        {
+            return loans.Where(l => l.MemberId == memberId);
+        }
+
+        public static void ReturnLoan(int loanId)
+        {
+            var loan = loans.FirstOrDefault(l => l.Id == loanId);
+            if (loan != null)
+            {
+                loan.ReturnDate = DateTime.Now;
+            }
         }
     }
 }
