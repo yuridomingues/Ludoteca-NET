@@ -137,7 +137,7 @@ class Program
 
                     if (!memberLoans.Any())
                     {
-                        Console.WriteLine("Nenhum empréstimo encontrado para este membro.");
+                        Console.WriteLine("Nenhuma multa encontrado para este membro.");
                         break;
                     }
 
