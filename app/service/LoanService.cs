@@ -21,12 +21,12 @@ namespace Ludo.Services
             if (loans.Any(l => l.GameId == gameId && !l.ReturnDate.HasValue))
                 return false;
 
-            GameModel game = await gameService.GetGameById(gameId);
+            GameModel? game = await gameService.GetGameById(gameId);
 
             if (game == null || !game.Availability)
                 return false;
 
-            GameModel loan = new LoanModel
+            LoanModel loan = new LoanModel
             {
                 Id = loans.Count + 1,
                 GameId = gameId,
@@ -49,7 +49,7 @@ namespace Ludo.Services
 
         public async Task<bool> ReturnLoanAsync(int loanId)
         {
-            LoanModel loan = loans.FirstOrDefault(l => l.Id == loanId);
+            LoanModel? loan = loans.FirstOrDefault(l => l.Id == loanId);
 
             if (loan == null || loan.ReturnDate.HasValue)
                 return false;

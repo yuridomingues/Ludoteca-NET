@@ -4,12 +4,14 @@ using System.Text.Json;
 using Ludo.Models;
 using Ludo.Services;
 using Ludo.Enum;
+using System.Threading.Tasks;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        var gameService = new GameService();
+        GameService gameService = new GameService();
+        LoanService loanService = new LoanService(gameService);
 
         while (true)
         {
@@ -21,10 +23,13 @@ class Program
             Console.WriteLine("4 - Consultar minhas multas");
             Console.WriteLine("5 - Consultar meus empréstimos");
             Console.WriteLine("6 - Fazer um empréstimo");
-            Console.WriteLine("7 - Sair");
+            Console.WriteLine("7 - Devolver um empréstimo");
+            Console.WriteLine("8 - Sair");
             Console.Write("Opção: ");
 
-            switch (Console.ReadLine())
+            string? option = Console.ReadLine();
+
+            switch (option)
             {
                 case "1":
                     Console.WriteLine("Quantos jogos você quer cadastrar?");
@@ -105,7 +110,6 @@ class Program
                     member.Phone = Console.ReadLine() ?? "";
 
                     member.Fine = 0;
-
                     member.Availability = true;
 
                     MemberModel.RegisterMember(member);
@@ -122,14 +126,14 @@ class Program
                         break;
                     }
 
-                    var memberForFine = MemberModel.GetMemberById(memberIdForFine);
+                    MemberModel? memberForFine = MemberModel.GetMemberById(memberIdForFine);
                     if (memberForFine == null)
                     {
                         Console.WriteLine("Membro não encontrado.");
                         break;
                     }
 
-                    var memberLoans = LoanService.GetLoans(memberIdForFine);
+                    System.Collections.Generic.IEnumerable<LoanModel> memberLoans = loanService.GetLoans(memberIdForFine);
 
                     if (!memberLoans.Any())
                     {
@@ -138,13 +142,13 @@ class Program
                     }
 
                     Console.WriteLine("\n=== Consulta de Multas ===");
-                    foreach (var l in memberLoans)
+                    foreach (LoanModel l in memberLoans)
                     {
                         LoanModel loan = new LoanModel
                         {
                             GameId = l.GameId,
                             MemberId = l.MemberId,
-                            ExpectedReturnDate = l.ReturnDate,
+                            ExpectedReturnDate = l.ExpectedReturnDate,
                             ReturnDate = DateTime.Now
                         };
 
@@ -155,15 +159,14 @@ class Program
                     break;
 
                 case "5":
-                    Console.WriteLine("Insira seu id de membro");
-
+                    Console.Write("Insira seu id de membro: ");
                     if (!int.TryParse(Console.ReadLine(), out int memberId))
                     {
                         Console.WriteLine("Id inválido!");
                         break;
                     }
 
-                    var loans = LoanModel.GetLoans(memberId).ToList();
+                    System.Collections.Generic.List<LoanModel> loans = loanService.GetLoans(memberId).ToList();
 
                     if (!loans.Any())
                     {
@@ -172,10 +175,11 @@ class Program
                     else
                     {
                         Console.WriteLine("\nSeus empréstimos:");
-                        foreach (var l in loans)
+                        foreach (LoanModel l in loans)
                         {
                             Console.WriteLine(
-                                $"- Jogo ID: {l.GameId}, Prevista: {l.ExpectedReturnDate:dd/MM/yyyy}" +
+                                $"- Empréstimo ID: {l.Id}, Jogo ID: {l.GameId}, " +
+                                $"Prevista: {l.ExpectedReturnDate:dd/MM/yyyy}" +
                                 (l.ReturnDate.HasValue ? $", Devolvido em: {l.ReturnDate:dd/MM/yyyy}" : "")
                             );
                         }
@@ -183,19 +187,31 @@ class Program
                     break;
 
                 case "6":
-                    Console.WriteLine("Qual jogo quer pegar emprestado?");
                     Console.WriteLine("Jogos disponíveis:");
-                    foreach (var g in gameService.GetAllGames())
+                    System.Collections.Generic.List<GameModel> availableGames = gameService.GetAllGames().Where(g => g.Availability).ToList();
+
+                    if (!availableGames.Any())
                     {
-                        Console.WriteLine($"- {g.Name}");
+                        Console.WriteLine("Nenhum jogo disponível para empréstimo.");
+                        break;
                     }
 
-                    var gameToBorrow = Console.ReadLine();
-                    var selectedGame = gameService.GetAllGames().FirstOrDefault(g => g.Name == gameToBorrow);
+                    foreach (GameModel g in availableGames)
+                    {
+                        Console.WriteLine($"- {g.Id} | {g.Name}");
+                    }
 
+                    Console.Write("Digite o ID do jogo que deseja pegar emprestado: ");
+                    if (!int.TryParse(Console.ReadLine(), out int gameId))
+                    {
+                        Console.WriteLine("Id de jogo inválido!");
+                        break;
+                    }
+
+                    GameModel? selectedGame = availableGames.FirstOrDefault(g => g.Id == gameId);
                     if (selectedGame == null)
                     {
-                        Console.WriteLine("Jogo não encontrado.");
+                        Console.WriteLine("Jogo não encontrado ou indisponível.");
                         break;
                     }
 
@@ -213,14 +229,29 @@ class Program
                         break;
                     }
 
-                    var registroDeEmprestimo = LoanService.Borrow(selectedGame.Id, memberId, quantidadeDias);
-                    if (registroDeEmprestimo)
+                    bool emprestimoOk = await loanService.BorrowAsync(selectedGame.Id, memberId, quantidadeDias);
+                    if (emprestimoOk)
                         Console.WriteLine("Empréstimo realizado com sucesso!");
                     else
-                        Console.WriteLine("Erro ao realizar o empréstimo. Jogo já emprestado.");
+                        Console.WriteLine("Erro: jogo já emprestado ou indisponível.");
                     break;
 
                 case "7":
+                    Console.Write("Digite o ID do empréstimo que deseja devolver: ");
+                    if (!int.TryParse(Console.ReadLine(), out int loanId))
+                    {
+                        Console.WriteLine("Id inválido!");
+                        break;
+                    }
+
+                    bool retornoOk = await loanService.ReturnLoanAsync(loanId);
+                    if (retornoOk)
+                        Console.WriteLine("Jogo devolvido com sucesso!");
+                    else
+                        Console.WriteLine("Erro: empréstimo não encontrado ou já devolvido.");
+                    break;
+
+                case "8":
                     Console.WriteLine("Saindo...");
                     return;
 

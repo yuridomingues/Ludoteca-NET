@@ -12,7 +12,7 @@ namespace Ludo.Models
         public DateTime LoanDate { get; set; }
         public DateTime ExpectedReturnDate { get; set; }
         public DateTime? ReturnDate { get; set; }
-        public decimal FineAmount { get; private set; }
+        public decimal FineAmount { get; set; }
 
         public void CalculateFine(int finePerLateDay, MemberModel member)
         {
