@@ -11,54 +11,77 @@ namespace Ludo.Services
         private readonly List<LoanModel> loans = new();
         private readonly GameService gameService;
 
-        public LoanService(GameService gameService)
+        public LoanService(GameService gameService) // [AV1-2]
         {
             this.gameService = gameService;
         }
 
         public async Task<bool> BorrowAsync(int gameId, int memberId, int numberOfDays)
         {
-            if (loans.Any(l => l.GameId == gameId && !l.ReturnDate.HasValue))
-                return false;
-
-            GameModel? game = await gameService.GetGameById(gameId);
-
-            if (game == null || !game.Availability)
-                return false;
-
-            LoanModel loan = new LoanModel
+            try
             {
-                Id = loans.Count + 1,
-                GameId = gameId,
-                MemberId = memberId,
-                LoanDate = DateTime.Now,
-                ExpectedReturnDate = DateTime.Now.AddDays(numberOfDays),
-            };
+                if (loans.Any(l => l.GameId == gameId && !l.ReturnDate.HasValue))
+                    return false;
 
-            loans.Add(loan);
+                GameModel? game = await gameService.GetGameById(gameId);
 
-            await gameService.UpdateDisponibility(gameId, false);
+                if (game == null || !game.Availability)
+                    return false;
 
-            return true;
+                LoanModel loan = new LoanModel(
+                    loans.Count + 1,          
+                    gameId,                    
+                    memberId,                  
+                    DateTime.Now,              
+                    DateTime.Now.AddDays(numberOfDays) 
+                );
+
+                loans.Add(loan);
+
+                await gameService.UpdateDisponibility(gameId, false);
+
+                return true;
+            }
+            catch (Exception ex) // [AV1-5]
+            {
+                Console.WriteLine($"[ERRO - BorrowAsync] Não foi possível realizar o empréstimo: {ex.Message}");
+                return false;
+            }
         }
 
         public IEnumerable<LoanModel> GetLoans(int memberId)
         {
-            return loans.Where(l => l.MemberId == memberId);
+            try 
+            {
+                return loans.Where(l => l.MemberId == memberId);
+            }
+            catch (Exception ex) // [AV1-5]
+            {
+                Console.WriteLine($"[ERRO - GetLoans] Não foi possível recuperar os empréstimos: {ex.Message}");
+                return Enumerable.Empty<LoanModel>();
+            }
         }
 
         public async Task<bool> ReturnLoanAsync(int loanId)
         {
-            LoanModel? loan = loans.FirstOrDefault(l => l.Id == loanId);
+            try
+            {
+                LoanModel? loan = loans.FirstOrDefault(l => l.Id == loanId);
 
-            if (loan == null || loan.ReturnDate.HasValue)
+                if (loan == null || loan.ReturnDate.HasValue)
+                    return false;
+
+                loan.SetReturnDate(DateTime.Now);
+
+                await gameService.UpdateDisponibility(loan.GameId, true);
+
+                return true;
+            }
+            catch (Exception ex) // [AV1-5]
+            {
+                Console.WriteLine($"[ERRO - ReturnLoanAsync] Não foi possível devolver o empréstimo: {ex.Message}");
                 return false;
-
-            loan.ReturnDate = DateTime.Now;
-
-            await gameService.UpdateDisponibility(loan.GameId, true);
-
-            return true;
+            }
         }
     }
 }

@@ -43,18 +43,15 @@ class Program
                     {
                         Console.WriteLine($"\nCadastro do jogo #{i + 1}");
 
-                        GameModel game = new GameModel();
-
                         Console.Write("Nome: ");
-                        game.Name = Console.ReadLine() ?? "Sem nome";
+                        string nome = Console.ReadLine() ?? "Sem nome";
 
                         Console.Write("Valor: ");
                         if (!decimal.TryParse(Console.ReadLine(), out decimal valor))
                         {
-                            Console.WriteLine("Valor inválido!");
-                            continue;
+                            Console.WriteLine("Valor inválido! Definindo como 0.");
+                            valor = 0;
                         }
-                        game.Value = valor;
 
                         Console.Write("Categoria (Action, Adventure, RPG, Sports, Strategy, Simulation, Puzzle): ");
                         if (!Enum.TryParse(Console.ReadLine(), true, out CategoryGame category))
@@ -62,7 +59,6 @@ class Program
                             Console.WriteLine("Categoria inválida! Definindo como 'Action'.");
                             category = CategoryGame.Action;
                         }
-                        game.CategoryGame = category;
 
                         Console.Write("Disponível? (true/false): ");
                         if (!bool.TryParse(Console.ReadLine(), out bool disponibilidade))
@@ -70,10 +66,14 @@ class Program
                             Console.WriteLine("Disponibilidade inválida! Definindo como 'true'.");
                             disponibilidade = true;
                         }
-                        game.Availability = disponibilidade;
 
                         Console.Write("Descrição: ");
-                        game.Description = Console.ReadLine() ?? "";
+                        string descricao = Console.ReadLine() ?? "";
+
+                        GameModel game = new GameModel(i + 1, nome, valor, category, descricao)
+                        {
+                            Availability = disponibilidade
+                        };
 
                         gameService.CreateGame(game);
                     }
@@ -90,13 +90,11 @@ class Program
                 case "3":
                     Console.WriteLine("\n=== Cadastro de Membro ===");
 
-                    MemberModel member = new MemberModel();
-
                     Console.Write("Nome: ");
-                    member.Name = Console.ReadLine() ?? "Sem nome";
+                    string nomeM = Console.ReadLine() ?? "Sem nome";
 
                     Console.Write("Email: ");
-                    member.Email = Console.ReadLine() ?? "sememail@dominio.com";
+                    string email = Console.ReadLine() ?? "sememail@dominio.com";
 
                     Console.Write("Data de nascimento (dd/MM/yyyy): ");
                     if (!DateTime.TryParse(Console.ReadLine(), out DateTime birthDate))
@@ -104,13 +102,11 @@ class Program
                         Console.WriteLine("Data inválida! Definindo como 01/01/2000.");
                         birthDate = new DateTime(2000, 1, 1);
                     }
-                    member.BirthDate = birthDate;
 
                     Console.Write("Telefone: ");
-                    member.Phone = Console.ReadLine() ?? "";
+                    string telefone = Console.ReadLine() ?? "";
 
-                    member.Fine = 0;
-                    member.Availability = true;
+                    MemberModel member = new MemberModel(nomeM, email, birthDate, telefone);
 
                     MemberModel.RegisterMember(member);
 
@@ -133,30 +129,32 @@ class Program
                         break;
                     }
 
-                    System.Collections.Generic.IEnumerable<LoanModel> memberLoans = loanService.GetLoans(memberIdForFine);
+                    IEnumerable<LoanModel> memberLoans = loanService.GetLoans(memberIdForFine);
 
                     if (!memberLoans.Any())
                     {
-                        Console.WriteLine("Nenhuma multa encontrado para este membro.");
+                        Console.WriteLine("Nenhuma multa encontrada para este membro.");
                         break;
                     }
 
                     Console.WriteLine("\n=== Consulta de Multas ===");
                     foreach (LoanModel l in memberLoans)
                     {
-                        LoanModel loan = new LoanModel
-                        {
-                            GameId = l.GameId,
-                            MemberId = l.MemberId,
-                            ExpectedReturnDate = l.ExpectedReturnDate,
-                            ReturnDate = DateTime.Now
-                        };
+                        LoanModel loan = new LoanModel(
+                            l.Id,                
+                            l.GameId,
+                            l.MemberId,
+                            l.LoanDate,
+                            l.ExpectedReturnDate
+                        );
 
+                        loan.SetReturnDate(DateTime.Now);
                         loan.CalculateFine(5, memberForFine);
                     }
 
                     Console.WriteLine($"Multa total do membro {memberForFine.Name}: R$ {memberForFine.Fine}");
                     break;
+
 
                 case "5":
                     Console.Write("Insira seu id de membro: ");
