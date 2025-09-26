@@ -41,7 +41,7 @@ namespace Ludo.Models
 
         public void RemoveGame(int id)
         {
-            var game = _gameCollection.FirstOrDefault(g => g.Id == id);
+            GameModel game = _gameCollection.FirstOrDefault(g => g.Id == id);
             if (game == null)
                 throw new KeyNotFoundException($"Nenhum jogo com ID {id} foi encontrado.");
 
@@ -51,7 +51,7 @@ namespace Ludo.Models
 
         public GameModel GetGameById(int id)
         {
-            var game = _gameCollection.FirstOrDefault(g => g.Id == id);
+            GameModel game = _gameCollection.FirstOrDefault(g => g.Id == id);
             if (game == null)
                 throw new KeyNotFoundException($"Nenhum jogo com ID {id} foi encontrado.");
             return game;
