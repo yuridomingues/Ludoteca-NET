@@ -14,7 +14,7 @@ namespace Ludo.Models
         public DateTime? ReturnDate { get; set; }
         public decimal FineAmount { get; set; }
 
-        public LoanModel(int id, int gameId, int memberId, DateTime loanDate, DateTime expectedReturnDate)
+        public LoanModel(int id, int gameId, int memberId, DateTime loanDate, DateTime expectedReturnDate)  // [AV1-2] - Construtor da classe
         {
             if (gameId <= 0)
                 throw new ArgumentException("O jogo deve ser válido.", nameof(gameId)); // [AV1-5]

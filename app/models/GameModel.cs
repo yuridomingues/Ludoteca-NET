@@ -11,7 +11,7 @@ namespace Ludo.Models
         public bool Availability { get; set; } = true;
         public string Description { get; set; } = string.Empty;
 
-        public GameModel(int id, string name, decimal value, CategoryGame categoryGame, string description)
+        public GameModel(int id, string name, decimal value, CategoryGame categoryGame, string description)  // [AV1-2] - Construtor da classe
         {
             if (id <= 0)
                 throw new ArgumentException("O Id deve ser maior que zero.", nameof(id));    // [AV1-5]

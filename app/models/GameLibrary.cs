@@ -8,7 +8,7 @@ public class GameLibrary
     private const string LibraryDataPath = "data/biblioteca.json";
     public IReadOnlyCollection<GameModel> Jogos => _gameCollection.AsReadOnly();
 
-    public GameLibrary()
+    public GameLibrary()   // [AV1-2] - Construtor da classe
     {
         Directory.CreateDirectory("data");
     }
