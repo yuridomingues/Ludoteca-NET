@@ -52,7 +52,7 @@ namespace Ludo.Models
             }
             else
             {
-                foreach (var member in Members)
+                foreach (MemberModel member in Members)
                 {
                     Console.WriteLine($"Id: {member.Id}, Name: {member.Name}, Email: {member.Email}, Phone: {member.Phone}, Fine: ${member.Fine}, Available: {member.Availability}");
                 }
@@ -65,7 +65,7 @@ namespace Ludo.Models
         public static void SaveMembers()   // [AV1-3] - Atribuimos o nome em ingles para padronizaçao - função Salvar()
         {
             Directory.CreateDirectory("data");
-            var json = JsonSerializer.Serialize(Members, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(Members, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(FilePath, json);
         }
 
@@ -73,8 +73,8 @@ namespace Ludo.Models
         {
             if (File.Exists(FilePath))
             {
-                var json = File.ReadAllText(FilePath);
-                var loadedMembers = JsonSerializer.Deserialize<List<MemberModel>>(json);
+                string json = File.ReadAllText(FilePath);
+                List<MemberModel>? loadedMembers = JsonSerializer.Deserialize<List<MemberModel>>(json);
                 Members = loadedMembers ?? new List<MemberModel>();
             }
         }
