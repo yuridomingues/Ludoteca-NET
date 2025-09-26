@@ -11,7 +11,7 @@ Yuri Domingues - 06010142
 
 ## Diagrama de Classes:
 
-![alt text](data/image.png)
+![alt text](assets/image.png)
 
 
 ## Requisito 2 – Encapsulamento e Validações
